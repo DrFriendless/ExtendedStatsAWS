@@ -11,6 +11,8 @@ Parameters:
 Resources:
   UserListQueue:
     Type: "AWS::SQS::Queue"
+    Properties:
+      MessageRetentionPeriod: 600
 
 #  GetHelloWorld:
 #    Type: AWS::Serverless::Function
