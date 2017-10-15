@@ -39,8 +39,8 @@ Resources:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
     Environment: {
       Variables: {
-        QUEUE_URL: { "Fn::GetAtt": ["UserListQueue", "QueueUrl"] },
-        REGION: { "Ref", "AWS::Region" }
+        QUEUE_URL: !GetAtt UserListQueue.QueueUrl
+        REGION: !Ref "AWS::Region"
       }
     }
 
@@ -54,7 +54,7 @@ Resources:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
     Environment: {
       Variables: {
-        QUEUE_URL: { "Fn::GetAtt": ["UserListQueue", "QueueUrl"] },
-        REGION: { "Ref", "AWS::Region" }
+        QUEUE_URL: !GetAtt UserListQueue.QueueUrl
+        REGION: !Ref "AWS::Region"
       }
     }
