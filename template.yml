@@ -11,9 +11,6 @@ Parameters:
 Resources:
   UserListQueue:
     Type: "AWS::SQS::Queue"
-    Properties:
-      FifoQueue: true
-      MessageRetentionPeriod: 600
 
 #  GetHelloWorld:
 #    Type: AWS::Serverless::Function
