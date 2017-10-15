@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "aws-lambda": "^0.1.2",
     "aws-lambda-typescript": "0.0.10",
+    "aws-sdk": "^2.133.0",
     "request": "^2.83.0"
   }
 }

@@ -1,17 +1,14 @@
 {
-    "compilerOptions": {
-        "module": "system",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "outFile": "users.js",
-        "sourceMap": true
-    },
-    "include": [
-        "users.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ]
+  "compilerOptions": {
+    "module": "system",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "outFile": "users.js",
+    "sourceMap": true,
+    "target": "es2016",
+    "moduleResolution": "Node"
+  }
 }
