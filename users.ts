@@ -29,7 +29,6 @@ export const writeToDB: Handler = (event, context, callback: Callback) => {
                 //     }
                 // });
             }
-            return callback(undefined, "Hello World");
         }
     });
 };
@@ -50,8 +49,6 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
             if (err) {
                 console.log('error:',"Fail Send Message" + err);
                 return callback(new Error("SQS send failed"));
-            } else {
-                return callback(undefined, data.MessageId);
             }
         });
     });
