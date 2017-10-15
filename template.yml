@@ -37,3 +37,10 @@ Resources:
           Properties:
             Path: /john
             Method: get
+  UserListQueue:
+    Type: AWS::SQS:Queue
+    Properties:
+      ContentBasedDeduplication: false
+      FifoQueue: true
+      MessageRetentionPeriod: 600
+      QueueName: userlist.fifo
