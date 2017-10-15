@@ -17,17 +17,16 @@ export const writeToDB: Handler = (event, context, callback: Callback) => {
             return callback(new Error("SQS receive failed"));
         } else {
             console.log(data.Messages);
-            // data.Messages.sort((m1: SQS.Message, m2: SQS.Message) => m1.MessageAttributes);
             if (data.Messages) {
-                // data.Messages.forEach(message => {
-                //     if (message.ReceiptHandle) {
-                //         const params: SQS.Types.DeleteMessageRequest = {
-                //             QueueUrl: QUEUE_URL,
-                //             ReceiptHandle: message.ReceiptHandle
-                //         };
-                //         sqs.deleteMessage(params);
-                //     }
-                // });
+                data.Messages.forEach(message => {
+                    if (message.ReceiptHandle) {
+                        const params: SQS.Types.DeleteMessageRequest = {
+                            QueueUrl: QUEUE_URL,
+                            ReceiptHandle: message.ReceiptHandle
+                        };
+                        sqs.deleteMessage(params);
+                    }
+                });
             }
         }
     });
