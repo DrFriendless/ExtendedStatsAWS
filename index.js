@@ -9,10 +9,4 @@ exports.get = function(event, context) {
         headers: {'Content-Type': 'text/html'}
     });
 };
-exports.john = function(event, context) {
-    context.succeed({
-        statusCode: 200,
-        body: "Hello John",
-        headers: {'Content-Type': 'text/plain'}
-    });
-};
+

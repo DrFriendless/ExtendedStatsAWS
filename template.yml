@@ -23,20 +23,7 @@ Resources:
           Properties:
             Path: /
             Method: get
-  GetHelloJohn:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: index.john
-      Runtime: nodejs6.10
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /john
-            Method: get
+
   UserListFromPastebin:
     Type: AWS::Serverless::Function
     Properties:
@@ -45,6 +32,13 @@ Resources:
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+    Environment: {
+      Variables: {
+        QUEUE_URL: { "Fn::GetAtt": ["UserListQueue", "QueueUrl"] },
+        REGION: { "Ref", "AWS::Region" }
+      }
+    }
+
   UserListToMongo:
     Type: AWS::Serverless::Function
     Properties:
@@ -53,10 +47,17 @@ Resources:
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-#  UserListQueue:
-#    Type: AWS::SQS::Queue
-#    Properties:
-#      ContentBasedDeduplication: false
-#      FifoQueue: true
-#      MessageRetentionPeriod: 600
-#      QueueName: userlist.fifo
+    Environment: {
+      Variables: {
+        QUEUE_URL: { "Fn::GetAtt": ["UserListQueue", "QueueUrl"] },
+        REGION: { "Ref", "AWS::Region" }
+      }
+    }
+
+  UserListQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      ContentBasedDeduplication: false
+      FifoQueue: true
+      MessageRetentionPeriod: 600
+      QueueName: userlist.fifo
