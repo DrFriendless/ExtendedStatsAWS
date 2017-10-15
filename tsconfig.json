@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outFile": "users.js",
+        "sourceMap": true
+    },
+    "include": [
+        "users.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
