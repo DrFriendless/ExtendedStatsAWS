@@ -23,3 +23,17 @@ Resources:
           Properties:
             Path: /
             Method: get
+  GetHelloJohn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.john
+      Runtime: nodejs4.3
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /john
+            Method: get
