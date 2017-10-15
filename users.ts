@@ -32,6 +32,7 @@ export const writeToDB: Handler = (event, context, callback: Callback) => {
 
 // Lambda to get the list of users from pastebin and stick it on a queue to be processed.
 export const readFromPastebin: Handler = (event, context, callback: Callback) => {
+    console.log(process.env);
     console.log("region = " + process.env.AWS_REGION);
     console.log("queue = " + process.env.QUEUE_URL);
     const sqs = new SQS({region : process.env.AWS_REGION});
