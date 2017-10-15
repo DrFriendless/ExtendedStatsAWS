@@ -37,12 +37,10 @@ Resources:
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-    Environment: {
-      Variables: {
+    Environment:
+      Variables:
         QUEUE_URL: !GetAtt UserListQueue.QueueUrl
         REGION: !Ref "AWS::Region"
-      }
-    }
 
   UserListToMongo:
     Type: AWS::Serverless::Function
@@ -52,9 +50,7 @@ Resources:
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-    Environment: {
-      Variables: {
+    Environment:
+      Variables:
         QUEUE_URL: !GetAtt UserListQueue.QueueUrl
         REGION: !Ref "AWS::Region"
-      }
-    }
