@@ -13,7 +13,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.get
-      Runtime: nodejs4.3
+      Runtime: nodejs6.10
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
@@ -27,7 +27,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.john
-      Runtime: nodejs4.3
+      Runtime: nodejs6.10
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
@@ -37,10 +37,10 @@ Resources:
           Properties:
             Path: /john
             Method: get
-  UserListQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      ContentBasedDeduplication: false
-      FifoQueue: true
-      MessageRetentionPeriod: 600
-      QueueName: userlist.fifo
+#  UserListQueue:
+#    Type: AWS::SQS::Queue
+#    Properties:
+#      ContentBasedDeduplication: false
+#      FifoQueue: true
+#      MessageRetentionPeriod: 600
+#      QueueName: userlist.fifo

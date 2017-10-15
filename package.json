@@ -1,0 +1,10 @@
+{
+  "name": "ExtendedStatsAWS",
+  "description": "Extended Stats in the cloud, built with AWS CodeStar",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "aws-lambda-typescript": "0.0.10",
+    "request": "^2.83.0",
+  }
+}
