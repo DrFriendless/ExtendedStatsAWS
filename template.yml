@@ -39,7 +39,7 @@ Resources:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
     Environment:
       Variables:
-        QUEUE_URL: !GetAtt UserListQueue.QueueUrl
+        QUEUE_URL: !Ref UserListQueue
 
   UserListToMongo:
     Type: AWS::Serverless::Function
@@ -51,4 +51,4 @@ Resources:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
     Environment:
       Variables:
-        QUEUE_URL: !GetAtt UserListQueue.QueueUrl
+        QUEUE_URL: !Ref UserListQueue
