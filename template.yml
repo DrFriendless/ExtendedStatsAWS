@@ -55,9 +55,9 @@ Resources:
     }
 
   UserListQueue:
-    Type: AWS::SQS::Queue
+    Type: "AWS::SQS::Queue"
     Properties:
       ContentBasedDeduplication: false
       FifoQueue: true
       MessageRetentionPeriod: 600
-      QueueName: userlist.fifo
+      QueueName: "userlist.fifo"
