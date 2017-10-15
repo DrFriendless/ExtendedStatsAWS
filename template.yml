@@ -37,6 +37,22 @@ Resources:
           Properties:
             Path: /john
             Method: get
+  UserListFromPastebin:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: users.readFromPastebin
+      Runtime: nodejs6.10
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+  UserListToMongo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: users.writeToDB
+      Runtime: nodejs6.10
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
 #  UserListQueue:
 #    Type: AWS::SQS::Queue
 #    Properties:
