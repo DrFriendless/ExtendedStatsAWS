@@ -38,7 +38,7 @@ Resources:
             Path: /john
             Method: get
   UserListQueue:
-    Type: AWS::SQS:Queue
+    Type: AWS::SQS::Queue
     Properties:
       ContentBasedDeduplication: false
       FifoQueue: true
