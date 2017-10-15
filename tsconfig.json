@@ -11,6 +11,9 @@
     "target": "es2016",
     "moduleResolution": "Node"
   },
+  "include": [
+    "*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
