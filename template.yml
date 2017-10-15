@@ -9,20 +9,26 @@ Parameters:
     Description: AWS CodeStar projectID used to associate new resources to team members
 
 Resources:
-  GetHelloWorld:
-    Type: AWS::Serverless::Function
+  UserListQueue:
+    Type: "AWS::SQS::Queue"
     Properties:
-      Handler: index.get
-      Runtime: nodejs6.10
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: get
+      FifoQueue: true
+      MessageRetentionPeriod: 600
+
+#  GetHelloWorld:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Handler: index.get
+#      Runtime: nodejs6.10
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Events:
+#        GetEvent:
+#          Type: Api
+#          Properties:
+#            Path: /
+#            Method: get
 
   UserListFromPastebin:
     Type: AWS::Serverless::Function
@@ -53,11 +59,3 @@ Resources:
         REGION: { "Ref", "AWS::Region" }
       }
     }
-
-  UserListQueue:
-    Type: "AWS::SQS::Queue"
-    Properties:
-      ContentBasedDeduplication: false
-      FifoQueue: true
-      MessageRetentionPeriod: 600
-      QueueName: "userlist.fifo"
