@@ -4,7 +4,7 @@ const request = require('request');
 
 // Lambda to get the list of users from an SQS queue and write it to Mongo DB.
 export const writeToDB: Handler = (event, context, callback: Callback) => {
-    const sqs = new SQS({region : process.env.REGION});
+    const sqs = new SQS({region : process.env.AWS_REGION});
     const params: SQS.Types.ReceiveMessageRequest = {
         QueueUrl: process.env.QUEUE_URL,
         AttributeNames: ["All"],
@@ -32,9 +32,9 @@ export const writeToDB: Handler = (event, context, callback: Callback) => {
 
 // Lambda to get the list of users from pastebin and stick it on a queue to be processed.
 export const readFromPastebin: Handler = (event, context, callback: Callback) => {
-    console.log("region = " + process.env.REGION);
+    console.log("region = " + process.env.AWS_REGION);
     console.log("queue = " + process.env.QUEUE_URL);
-    const sqs = new SQS({region : process.env.REGION});
+    const sqs = new SQS({region : process.env.AWS_REGION});
     request("https://pastebin.com/raw/BvvdxzcH", (error, response, body) => {
         if (error) {
             console.log("Retrieve-user-list failed: " + error);

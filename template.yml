@@ -40,7 +40,6 @@ Resources:
     Environment:
       Variables:
         QUEUE_URL: !GetAtt UserListQueue.QueueUrl
-        REGION: !Ref 'AWS::Region'
 
   UserListToMongo:
     Type: AWS::Serverless::Function
@@ -53,4 +52,3 @@ Resources:
     Environment:
       Variables:
         QUEUE_URL: !GetAtt UserListQueue.QueueUrl
-        REGION: !Ref 'AWS::Region'
