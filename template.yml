@@ -29,6 +29,26 @@ Resources:
 #            Path: /
 #            Method: get
 
+  UserListToMongo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: users.writeToDB
+      Runtime: nodejs6.10
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+    Environment:
+      Variables:
+        QUEUE_URL: !Ref 'UserListQueue'
+
+  UserListNotification:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      TopicName: "userlists"
+      Subscription:
+        Endpoint:
+          Fn::GetAtt: [ "UserListToMongo", "Arn" ]
+
   UserListFromPastebin:
     Type: AWS::Serverless::Function
     Properties:
@@ -41,14 +61,3 @@ Resources:
       Variables:
         QUEUE_URL: !Ref 'UserListQueue'
 
-  UserListToMongo:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: users.writeToDB
-      Runtime: nodejs6.10
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-    Environment:
-      Variables:
-        QUEUE_URL: !Ref 'UserListQueue'
