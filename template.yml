@@ -47,8 +47,8 @@ Resources:
     Properties:
       TopicName: "userlists"
       Subscription:
-        Endpoint: Fn::GetAtt: [ "UserListToMongo", "Arn" ]
-        Protocol: lambda
+        - Endpoint: Fn::GetAtt: [ "UserListToMongo", "Arn" ]
+          Protocol: lambda
 
   UserListFromPastebin:
     Type: AWS::Serverless::Function
@@ -61,5 +61,5 @@ Resources:
       Environment:
         Variables:
           SNS_ENDPOINT: !Ref 'UserListNotification'
-          QUEUE_URL: {Ref: UserListQueue}
+          QUEUE_URL: !Ref  'UserListQueue'
 
