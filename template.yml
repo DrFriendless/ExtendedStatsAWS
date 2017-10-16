@@ -47,7 +47,8 @@ Resources:
     Properties:
       TopicName: "userlists"
       Subscription:
-        - Endpoint: Fn::GetAtt: [ "UserListToMongo", "Arn" ]
+        - Endpoint:
+            Fn::GetAtt: [ "UserListToMongo", "Arn" ]
           Protocol: lambda
 
   UserListFromPastebin:
