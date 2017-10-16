@@ -9,6 +9,7 @@ Parameters:
     Description: AWS CodeStar projectID used to associate new resources to team members
 
 Resources:
+  # deprecated
   UserListQueue:
     Type: "AWS::SQS::Queue"
     Properties:
@@ -46,8 +47,8 @@ Resources:
     Properties:
       TopicName: "userlists"
       Subscription:
-        Endpoint:
-          Fn::GetAtt: [ "UserListToMongo", "Arn" ]
+        Endpoint: Fn::GetAtt: [ "UserListToMongo", "Arn" ]
+        Protocol: lambda
 
   UserListFromPastebin:
     Type: AWS::Serverless::Function
@@ -59,5 +60,6 @@ Resources:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
       Environment:
         Variables:
+          SNS_ENDPOINT: !Ref 'UserListNotification'
           QUEUE_URL: {Ref: UserListQueue}
 
