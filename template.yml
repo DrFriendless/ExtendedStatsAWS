@@ -28,7 +28,7 @@ Resources:
 #          Type: Api
 #          Properties:
 #            Path: /
-#            Method: get
+#            Method: get 
 
   UserListToMongo:
     Type: AWS::Serverless::Function
