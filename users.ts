@@ -42,7 +42,7 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
         response.on('error', (err: Error) => { return callback(err) });
         response.on('data', (chunk: Buffer) => data.push(chunk));
         response.on('end', () => {
-            const body = Buffer.concat(buffs).toString();
+            const body = Buffer.concat(data).toString();
             sns.publish({
                 Message: body,
                 TargetArn: snsEndpoint
