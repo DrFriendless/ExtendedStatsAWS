@@ -36,7 +36,7 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
     // const sqs = new SQS({region : process.env.AWS_REGION});
     const snsEndpoint = process.env.SNS_ENDPOINT;
     const sns = new SNS();
-    request("https://pastebin.com/raw/BvvdxzcH", (error, response, body) => {
+    request.get("https://pastebin.com/raw/BvvdxzcH", (error, response, body) => {
         if (error) {
             console.log("Retrieve-user-list failed: " + error);
             return callback(new Error(error));
