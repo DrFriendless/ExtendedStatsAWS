@@ -1,6 +1,6 @@
 import {Callback, Handler} from 'aws-lambda';
 import {SQS, SNS} from 'aws-sdk';
-const http = require('http');
+const https = require('https');
 
 // Lambda to get the list of users from an SQS queue and write it to Mongo DB.
 export const writeToDB: Handler = (event, context, callback: Callback) => {
@@ -38,7 +38,7 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
     const sns = new SNS();
     const data: Buffer[] = [];
 
-    http.get("https://pastebin.com/raw/BvvdxzcH", (response) => {
+    https.get("https://pastebin.com/raw/BvvdxzcH", (response) => {
         response.on('error', (err: Error) => { return callback(err) });
         response.on('data', (chunk: Buffer) => data.push(chunk));
         response.on('end', () => {
