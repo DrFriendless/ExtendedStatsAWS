@@ -1,6 +1,6 @@
 import {Callback, Handler} from 'aws-lambda';
 import {SQS, SNS} from 'aws-sdk';
-const request = require('request');
+const http = require('http');
 
 // Lambda to get the list of users from an SQS queue and write it to Mongo DB.
 export const writeToDB: Handler = (event, context, callback: Callback) => {
@@ -36,21 +36,24 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
     // const sqs = new SQS({region : process.env.AWS_REGION});
     const snsEndpoint = process.env.SNS_ENDPOINT;
     const sns = new SNS();
-    request.get("https://pastebin.com/raw/BvvdxzcH", (error, response, body) => {
-        if (error) {
-            console.log("Retrieve-user-list failed: " + error);
-            return callback(new Error(error));
-        }
-        sns.publish({
-            Message: body,
-            TargetArn: snsEndpoint
-        }, function(err, data) {
-            if (err) {
-                console.log(err.stack);
-                return;
-            }
-            console.log('push sent');
-            console.log(data);
+    const data: Buffer[] = [];
+
+    http.get("https://pastebin.com/raw/BvvdxzcH", (response) => {
+        response.on('error', (err: Error) => { return callback(err) });
+        response.on('data', (chunk: Buffer) => data.push(chunk));
+        response.on('end', () => {
+            const body = Buffer.concat(buffs).toString();
+            sns.publish({
+                Message: body,
+                TargetArn: snsEndpoint
+            }, function(err, data) {
+                if (err) {
+                    console.log(err.stack);
+                    return;
+                }
+                console.log('push sent');
+                console.log(data);
+            });
         });
         // const params: SQS.Types.SendMessageRequest = {
         //     'MessageBody': body,
@@ -63,4 +66,5 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
         //     }
         // });
     });
+
 };
