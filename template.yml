@@ -67,8 +67,8 @@ Resources:
   SNSInvokeLambdaPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
-      Action: "lambda:InvokeFunction",
-      Principal: "sns.amazonaws.com",
+      Action: "lambda:InvokeFunction"
+      Principal: "sns.amazonaws.com"
       SourceArn: !Ref "UserListNotification"
       FunctionName:
         Fn::GetAtt: [ "UserListToMongo", "Arn" ]
