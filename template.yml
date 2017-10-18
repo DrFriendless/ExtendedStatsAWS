@@ -64,3 +64,11 @@ Resources:
           SNS_ENDPOINT: !Ref 'UserListNotification'
           QUEUE_URL: !Ref  'UserListQueue'
 
+  SNSInvokeLambdaPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction",
+      Principal: "sns.amazonaws.com",
+      SourceArn: !Ref "UserListNotification"
+      FunctionName:
+        Fn::GetAtt: [ "UserListToMongo", "Arn" ]

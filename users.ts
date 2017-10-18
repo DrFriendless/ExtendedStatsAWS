@@ -52,7 +52,7 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
                     console.log(err.stack);
                     return;
                 }
-                console.log('push sent');
+                console.log('Sent to SNS');
                 console.log(data);
             });
         });
