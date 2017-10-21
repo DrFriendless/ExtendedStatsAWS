@@ -1,34 +1,19 @@
 import {Callback, Handler} from 'aws-lambda';
-import {SQS, SNS} from 'aws-sdk';
+import {SNS} from 'aws-sdk';
+import {IncomingMessage} from "https";
 const https = require('https');
 
 // Lambda to get the list of users from an SQS queue and write it to Mongo DB.
 export const writeToDB: Handler = (event, context, callback: Callback) => {
-    // const sqs = new SQS({region : process.env.AWS_REGION});
-    // const params: SQS.Types.ReceiveMessageRequest = {
-    //     QueueUrl: process.env.QUEUE_URL,
-    //     AttributeNames: ["All"],
-    // };
-    // sqs.receiveMessage(params, (err, data: SQS.Types.ReceiveMessageResult) => {
-    //     if (err) {
-    //         console.log('error:',"Fail Receive Message" + err);
-    //         return callback(new Error("SQS receive failed"));
-    //     } else {
-    //         console.log(data.Messages);
-    //         if (data.Messages) {
-    //             data.Messages.forEach(message => {
-    //                 if (message.ReceiptHandle) {
-    //                     const params: SQS.Types.DeleteMessageRequest = {
-    //                         QueueUrl: process.env.QUEUE_URL,
-    //                         ReceiptHandle: message.ReceiptHandle
-    //                     };
-    //                     sqs.deleteMessage(params);
-    //                 }
-    //             });
-    //         }
-    //     }
-    // });
     console.log(event);
+    const SnsMessageId = event.Records[0].Sns.MessageId;
+    console.log(SnsMessageId);
+    const SnsPublishTime = event.Records[0].Sns.Timestamp;
+    console.log(SnsPublishTime);
+    const SnsTopicArn = event.Records[0].Sns.TopicArn;
+    console.log(SnsTopicArn);
+    const body = event.Records[0].Sns;
+    console.log(body);
 };
 
 // Lambda to get the list of users from pastebin and stick it on a queue to be processed.
@@ -38,7 +23,7 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
     const sns = new SNS();
     const data: Buffer[] = [];
 
-    https.get("https://pastebin.com/raw/BvvdxzcH", (response) => {
+    https.get("https://pastebin.com/raw/BvvdxzcH", (response: IncomingMessage) => {
         response.on('error', (err: Error) => { return callback(err) });
         response.on('data', (chunk: Buffer) => data.push(chunk));
         response.on('end', () => {
@@ -56,16 +41,6 @@ export const readFromPastebin: Handler = (event, context, callback: Callback) =>
                 console.log(data);
             });
         });
-        // const params: SQS.Types.SendMessageRequest = {
-        //     'MessageBody': body,
-        //     'QueueUrl': process.env.QUEUE_URL
-        // };
-        // sqs.sendMessage(params, (err, data: SQS.Types.SendMessageResult) => {
-        //     if (err) {
-        //         console.log('error:',"Fail Send Message" + err);
-        //         return callback(new Error("SQS send failed"));
-        //     }
-        // });
     });
 
 };
