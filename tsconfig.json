@@ -6,7 +6,6 @@
     "noImplicitThis": true,
     "removeComments": false,
     "preserveConstEnums": true,
-    "outFile": "users.js",
     "sourceMap": true,
     "target": "es2016",
     "moduleResolution": "Node"
