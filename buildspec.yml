@@ -7,7 +7,7 @@ phases:
       - sed -i -e "s|assets/|$WEBSITE_S3_PREFIX/public/assets/|g" public/index.html
       - npm install
       - npm install -g typescript
-      - tsc config.ts mongo.ts users.ts --target es5 --lib dom,es6
+      - tsc lambda/*.ts --target es5 --lib dom,es6
       - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
 
 artifacts:
