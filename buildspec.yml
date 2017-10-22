@@ -1,14 +1,20 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - npm install
+      - npm install -g typescript
   build:
     commands:
       - aws s3 cp --recursive public/ s3://$WEBSITE_S3_BUCKET/public/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
       - sed -i -e "s|assets/|$WEBSITE_S3_PREFIX/public/assets/|g" public/index.html
-      - npm install
-      - npm install -g typescript
+      - echo $CODEBUILD_SRC_DIR
       - tsc lambda/*.ts --target es5 --lib dom,es6
       - aws cloudformation package --debug --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
+  post_build:
+    commands:
+      - echo Build completed on `date`
 
 artifacts:
   type: zip
