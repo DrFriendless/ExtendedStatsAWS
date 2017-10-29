@@ -21,7 +21,7 @@ Resources:
   UserListFromPastebin:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda/read-from-pastebin.readFromPastebin
+      Handler: read-from-pastebin.readFromPastebin
       Runtime: nodejs6.10
       Role:
         Fn::ImportValue:
