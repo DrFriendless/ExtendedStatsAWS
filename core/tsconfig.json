@@ -7,8 +7,9 @@
     "removeComments": false,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "target": "es2016",
-    "moduleResolution": "Node"
+    "target": "es5",
+    "moduleResolution": "Node",
+    "lib": ["dom", "es6"]
   },
   "include": [
     "./*.ts"

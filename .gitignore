@@ -1,6 +1,13 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.idea/
-/node_modules/
+/core/node_modules/
+/lambdas/node_modules/
+/mongo/node_modules/
 /config.txt
 /template-export.yml
-/lambda/*.js
+/core/*.js
+/core/*.js.map
+/lambdas/*.js
+/lambdas/*.js.map
+/mongo/*.js
+/mongo/*.js.map

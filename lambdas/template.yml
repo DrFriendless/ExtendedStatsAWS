@@ -9,18 +9,6 @@ Parameters:
     Description: AWS CodeStar projectID used to associate new resources to team members
 
 Resources:
-  UserListToMongo:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: lambda/write-users-to-mongo.writeToDB
-      Runtime: nodejs6.10
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-#      Environment:
-#        Variables:
-#          QUEUE_URL: !Ref 'UserListQueue'
-
   UserListNotification:
     Type: "AWS::SNS::Topic"
     Properties:

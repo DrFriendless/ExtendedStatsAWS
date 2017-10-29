@@ -1,13 +1,12 @@
 import {SNS} from 'aws-sdk';
-import {IncomingMessage} from "https";
+import {IncomingMessage} from "http";
 import {Callback, Handler} from "aws-lambda";
 
 const https = require('https');
 
 // Lambda to get the list of users from pastebin and stick it on a queue to be processed.
 export const readFromPastebin: Handler = (event, context, callback: Callback) => {
-    // const sqs = new SQS({region : process.env.AWS_REGION});
-    const snsEndpoint = process.env.SNS_ENDPOINT;
+    const snsEndpoint = process.env["SNS_ENDPOINT"];
     const sns = new SNS();
     const data: Buffer[] = [];
 

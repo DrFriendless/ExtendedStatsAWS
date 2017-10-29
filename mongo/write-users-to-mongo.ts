@@ -1,5 +1,5 @@
 import {Callback, Handler} from 'aws-lambda';
-import {getConfig} from "./config";
+import {getConfig} from "../core/config";
 import {ensureUser} from "./mongo";
 
 // Lambda to get the list of users from an SQS queue and write it to Mongo DB.

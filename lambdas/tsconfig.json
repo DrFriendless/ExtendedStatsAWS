@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "Node",
+    "lib": ["dom", "es6"]
+  },
+  "include": [
+    "./*.ts"
+  ]
+}

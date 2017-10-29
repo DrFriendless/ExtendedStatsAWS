@@ -3,15 +3,15 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - npm install
       - npm install -g typescript
   build:
     commands:
-      - aws s3 cp --recursive public/ s3://$WEBSITE_S3_BUCKET/public/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-      - sed -i -e "s|assets/|$WEBSITE_S3_PREFIX/public/assets/|g" public/index.html
-      - echo $CODEBUILD_SRC_DIR
-      - tsc lambda/*.ts --target es5 --lib dom,es6
+      - cd core && npm install && tsc
+      - cd lambdas && npm install && tsc
+      - cd mongo && npm install && tsc
       - aws cloudformation package --debug --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
+      - aws cloudformation package --debug --template lambdas/template.yml --s3-bucket $S3_BUCKET --output-template template-lambdas.yml
+      - aws cloudformation package --debug --template mongo/template.yml --s3-bucket $S3_BUCKET --output-template template-mongo.yml
   post_build:
     commands:
       - echo Build completed on `date`
@@ -20,3 +20,5 @@ artifacts:
   type: zip
   files:
     - template-export.yml
+    - template-lambdas.yml
+    - template-mongo.yml

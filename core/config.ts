@@ -1,7 +1,7 @@
 // code to deal with the configuration secrets which are stored on S3
 
 import * as https from "https";
-import {IncomingMessage} from "https";
+import {IncomingMessage} from "http";
 
 const CONFIG_FILE = "https://s3-ap-southeast-2.amazonaws.com/extended-stats-aws/config.txt";
 

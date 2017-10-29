@@ -1,0 +1,15 @@
+#  GetHelloWorld:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Handler: index.get
+#      Runtime: nodejs6.10
+#      Role:
+#        Fn::ImportValue:
+#          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+#      Events:
+#        GetEvent:
+#          Type: Api
+#          Properties:
+#            Path: /
+#            Method: get
+

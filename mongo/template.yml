@@ -30,19 +30,6 @@ Resources:
             Fn::GetAtt: [ "UserListToMongo", "Arn" ]
           Protocol: lambda
 
-  UserListFromPastebin:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: lambda/read-from-pastebin.readFromPastebin
-      Runtime: nodejs6.10
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Environment:
-        Variables:
-          SNS_ENDPOINT: !Ref 'UserListNotification'
-#          QUEUE_URL: !Ref  'UserListQueue'
-
   SNSInvokeLambdaPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
