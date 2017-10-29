@@ -12,7 +12,8 @@ Resources:
   UserListToMongo:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: mongo/write-users-to-mongo.writeToDB
+      CodeUri: mongo
+      Handler: write-users-to-mongo.writeToDB
       Runtime: nodejs6.10
       Role:
         Fn::ImportValue:
@@ -30,7 +31,8 @@ Resources:
   UserListFromPastebin:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambdas/read-from-pastebin.readFromPastebin
+      CodeUri: lambdas
+      Handler: read-from-pastebin.readFromPastebin
       Runtime: nodejs6.10
       Role:
         Fn::ImportValue:
