@@ -10,8 +10,6 @@ phases:
       - cd lambdas && npm install && tsc && cd ..
       - cd mongo && npm install && tsc && cd ..
       - aws cloudformation package --debug --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
-      - aws cloudformation package --debug --template lambdas/template.yml --s3-bucket $S3_BUCKET --output-template template-lambdas.yml
-      - aws cloudformation package --debug --template mongo/template.yml --s3-bucket $S3_BUCKET --output-template template-mongo.yml
   post_build:
     commands:
       - echo Build completed on `date`
@@ -20,5 +18,3 @@ artifacts:
   type: zip
   files:
     - template-export.yml
-    - template-lambdas.yml
-    - template-mongo.yml
